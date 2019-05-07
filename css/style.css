@@ -1,0 +1,81 @@
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none !important;
+}
+
+button:disabled {
+    opacity: 0.5;
+}
+
+body {
+    background: #f4f4f4;
+}
+
+a {
+    cursor: pointer;
+}
+
+
+/* Header */
+
+header {
+    background: #333333;
+    color: #ffffff;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+header .create {
+    padding-top: 20px;
+}
+
+/* Breadcrumb */
+
+.breadcrumb {
+    background: #cccccc;
+    color: #333333;
+}
+
+.breadcrumb a {
+    color: #333333;
+}
+
+/* Progress Bar */
+.progress-bar {
+    background: #333333;
+    color: #ffffff;
+}
+
+.dash-box {
+    text-align: center;
+}
+
+/* Footer */
+#footer {
+    background: #333333;
+    color: #ffffff;
+    text-align: center;
+    padding: 30px;
+    margin-top: 30px;
+}
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+      color: #ecf0f1;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+      color: #f28181;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+      color: #f28181;
+      background-color: #8e0b11;
+    }
+}
+

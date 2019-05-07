@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-touch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-animate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-sanitize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="script/app.js"></script>
+    <script src="script/dashboard.routing.js"></script>
+    <script src="script/dashboard-controller.js"></script>
+    <title>Dashboard</title>
+</head>
+
+<body ng-app="app" ng-controller="dashboardController as ctrl">
+
+    <div class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Admin Dashboard</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <li ng-class="ctrl.activeState('dashboard')"><a
+                            ng-click="ctrl.currentPage = 'dashboard'">Dashboard</a></li>
+                    <li ng-class="ctrl.activeState('documents')"><a
+                            ng-click="ctrl.currentPage = 'documents'">Documents</a></li>
+                    <li ng-class="ctrl.activeState('users')"><a ng-click="ctrl.currentPage = 'users'">Users</a></li>
+                    <li ng-class="ctrl.activeState('roles')"><a ng-click="ctrl.currentPage = 'roles'">Roles</a></li>
+                    <li ng-class="ctrl.activeState('groups')"><a ng-click="ctrl.currentPage = 'groups'">Groups</a></li>
+                    <li ng-class="ctrl.activeState('dataAccessGroups')"><a
+                            ng-click="ctrl.currentPage = 'dataAccessGroups'">Data Access Groups</a></li>
+                    <li ng-class="ctrl.activeState('workflow')"><a ng-click="ctrl.currentPage = 'workflow'">Workflow</a>
+                    </li>
+                    <li ng-class="ctrl.activeState('config')"><a ng-click="ctrl.currentPage = 'config'">Config</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/login.html"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <header id="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        {{ctrl.pages[ctrl.currentPage].title}} <small>{{ctrl.pages[ctrl.currentPage].subTitle}}</small>
+                    </h1>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li ng-class="ctrl.activeState('dashboard')"><a ng-click="ctrl.currentPage = 'dashboard'">Dashboard</a>
+                </li>
+                <li ng-class="ctrl.activeState('documents')" ng-show="ctrl.currentPage == 'documents'">Documents</li>
+                <li ng-class="ctrl.activeState('users')" ng-show="ctrl.currentPage == 'users'">Users</li>
+                <li ng-class="ctrl.activeState('roles')" ng-show="ctrl.currentPage == 'roles'">Roles</li>
+                <li ng-class="ctrl.activeState('groups')" ng-show="ctrl.currentPage == 'groups'">Groups</li>
+                <li ng-class="ctrl.activeState('dataAccessGroups')" ng-show="ctrl.currentPage == 'dataAccessGroups'">
+                    Data Access Groups</li>
+                <li ng-class="ctrl.activeState('workflow')" ng-show="ctrl.currentPage == 'workflow'">Workflow</li>
+                <li ng-class="ctrl.activeState('config')" ng-show="ctrl.currentPage == 'config'">Site Config.</li>
+            </ol>
+        </div>
+    </section>
+
+    <section id="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="list-group">
+                        <a ng-click="ctrl.currentPage = 'dashboard'" class="list-group-item">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard
+                        </a>
+                        <a ng-click="ctrl.currentPage = 'documents'" class="list-group-item">
+                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Documents <span
+                                class="badge">12</span>
+                        </a>
+                        <a ng-click="ctrl.currentPage = 'users'" class="list-group-item">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users <span
+                                class="badge">203</span>
+                        </a>
+                        <a ng-click="ctrl.currentPage = 'roles'" class="list-group-item">
+                            <span class="glyphicon glyphicon-knight" aria-hidden="true"></span> Roles <span
+                                class="badge">8</span>
+                        </a>
+                        <a ng-click="ctrl.currentPage = 'groups'" class="list-group-item">
+                            <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> Groups <span
+                                class="badge">10</span>
+                        </a>
+                        <a ng-click="ctrl.currentPage = 'dataAccessGroups'" class="list-group-item">
+                            <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Data Access Groups <span
+                                class="badge">6</span>
+                        </a>
+                        <a ng-click="ctrl.currentPage = 'workflow'" class="list-group-item">
+                            <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Workflow <span
+                                class="badge">3</span>
+                        </a>
+                        <a ng-click="ctrl.currentPage = 'config'" class="list-group-item">
+                                <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Site Config
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+
+                    <div ng-show="ctrl.currentPage == 'dashboard'">
+                        <div class="panel panel-default">
+                            <div class="panel-heading main-color-bg">
+                                <h3 class="panel-title">Site Overview</h3>
+                            </div>
+                            <div class="panel-body">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="ctrl.currentPage == 'documents'">
+                        <div class="panel panel-default">
+                            <div class="panel-heading main-color-bg">
+                                <h3 class="panel-title">Recent Documents</h3>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Title</th>
+                                            <th>Requester</th>
+                                            <th>State</th>
+                                            <th>Created At</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="doc in ctrl.documents">
+                                            <td>{{doc.id}}</td>
+                                            <td>{{doc.title}}</td>
+                                            <td>{{doc.requester}}</td>
+                                            <td>{{doc.state}}</td>
+                                            <td>{{doc.createdAt}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="ctrl.currentPage == 'users'">
+                        <div class="panel panel-default">
+                            <div class="panel-heading main-color-bg">
+                                <h3 class="panel-title">Users</h3>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Unique Name</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Joined</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="user in ctrl.users">
+                                            <td>{{user.uniqueName}}</td>
+                                            <td>{{user.name}}</td>
+                                            <td>{{user.email}}</td>
+                                            <td>{{user.joined}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="ctrl.currentPage == 'roles'">
+                        <div class="panel panel-default">
+                            <div class="panel-heading main-color-bg">
+                                <h3 class="panel-title">Roles</h3>
+                            </div>
+                            <div class="panel-body">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="ctrl.currentPage == 'groups'">
+                        <div class="panel panel-default">
+                            <div class="panel-heading main-color-bg">
+                                <h3 class="panel-title">Groups</h3>
+                            </div>
+                            <div class="panel-body">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="ctrl.currentPage == 'dataAccessGroups'">
+                        <div class="panel panel-default">
+                            <div class="panel-heading main-color-bg">
+                                <h3 class="panel-title">Data Access Groups</h3>
+                            </div>
+                            <div class="panel-body">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="ctrl.currentPage == 'workflow'">
+                        <div class="panel panel-default">
+                            <div class="panel-heading main-color-bg">
+                                <h3 class="panel-title">Workflow Settings</h3>
+                            </div>
+                            <div class="panel-body">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="ctrl.currentPage == 'config'">
+                        <div class="panel panel-default">
+                            <div class="panel-heading main-color-bg">
+                                <h3 class="panel-title">Site Configuration</h3>
+                            </div>
+                            <div class="panel-body">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>

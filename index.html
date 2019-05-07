@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-touch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-animate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-sanitize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="script/app.js"></script>
+    <script src="script/app.routing.js"></script>
+    <script src="script/main-controller.js"></script>
+    <title>Home</title>
+</head>
+
+<body ng-app="app" ng-controller="mainController as ctrl">
+
+    <div class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Workflow App</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li ng-class="ctrl.activeState('home')"><a ng-click="ctrl.currentPage = 'home'">Home</a></li>
+                    <li ng-class="ctrl.activeState('documents')"><a
+                            ng-click="ctrl.currentPage = 'documents'">Documents</a></li>
+                    <li ng-class="ctrl.activeState('requests')"><a ng-click="ctrl.currentPage = 'requests'">Requests</a>
+                    </li>
+                    <li ng-show="ctrl.isAdmin()"><a href="dashboard.html">Admin Dashboard</a></li>
+                    <li ng-class="ctrl.activeState('userPrefs')"><a ng-click="ctrl.currentPage = 'userPrefs'">User
+                            Preferences</a></li>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/login.html"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                            Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <header id="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <h1><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                        {{ctrl.pages[ctrl.currentPage].title}} <small>{{ctrl.pages[ctrl.currentPage].subTitle}}</small>
+                    </h1>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li ng-class="ctrl.activeState('home')"><a ng-click="ctrl.currentPage = 'home'">Home</a>
+                </li>
+                <li ng-class="ctrl.activeState('documents')" ng-show="ctrl.currentPage == 'documents'">Documents</li>
+                <li ng-class="ctrl.activeState('requests')" ng-show="ctrl.currentPage == 'requests'">Requests</li>
+                <li ng-class="ctrl.activeState('userPrefs')" ng-show="ctrl.currentPage == 'userPrefs'">User Preferences
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <section id="main">
+        <div class="container">
+
+            <div ng-show="ctrl.currentPage == 'home'">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="list-group">
+                            <a ng-click="ctrl.currentPage = 'home'" class="list-group-item">
+                                <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
+                            </a>
+                            <a ng-click="ctrl.currentPage = 'documents'" class="list-group-item">
+                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Documents <span
+                                    class="badge">12</span>
+                            </a>
+                            <a ng-click="ctrl.currentPage = 'requests'" class="list-group-item">
+                                <span class="glyphicon glyphicon-list" aria-hidden="true"></span> Requests <span
+                                    class="badge">203</span>
+                            </a>
+                            <a ng-click="ctrl.currentPage = 'userPrefs'" class="list-group-item">
+                                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> User Preferences
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="panel panel-default">
+                            <div class="panel-heading main-color-bg">
+                                <h3 class="panel-title">Overview</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-md-4">
+                                    <div class="well dash-box" ng-click="ctrl.currentPage = 'documents'">
+                                        <h2><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 12
+                                        </h2>
+                                        <h4>Documents</h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="well dash-box" ng-click="ctrl.currentPage = 'requests'">
+                                        <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 203</h2>
+                                        <h4>Requests</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <h3>Recent documents</h3>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Title</th>
+                                            <th>Requester</th>
+                                            <th>State</th>
+                                            <th>Created At</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="doc in ctrl.recentDocuments(5)">
+                                            <td>{{doc.id}}</td>
+                                            <td>{{doc.title}}</td>
+                                            <td>{{doc.requester}}</td>
+                                            <td>{{doc.state}}</td>
+                                            <td>{{doc.createdAt}}</td>
+                                            <td><a href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h3>Recent requests</h3>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Title</th>
+                                            <th>Requester</th>
+                                            <th>State</th>
+                                            <th>Submitted Date</th>
+                                            <th>Action</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="req in ctrl.recentRequests(5)">
+                                            <td>{{req.id}}</td>
+                                            <td>{{req.title}}</td>
+                                            <td>{{req.requester}}</td>
+                                            <td>{{req.state}}</td>
+                                            <td>{{req.submittedDate}}</td>
+                                            <td>{{req.action}}</td>
+                                            <td><a href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="ctrl.currentPage == 'documents'">
+                <div class="panel panel-default">
+                    <div class="panel-heading main-color-bg">
+                        <h3 class="panel-title">Documents</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3 col-md-offset-10">
+                                <div class="btn-group" uib-dropdown is-open="status.isopen">
+                                    <button id="doc-state-button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="disabled">
+                                        Filter by state <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="doc-state-button">
+                                        <li role="menuitem"><a href="#">Saved</a></li>
+                                        <li role="menuitem"><a href="#">Submitted</a></li>
+                                        <li role="menuitem"><a href="#">Withdrawn</a></li>
+                                        <li role="menuitem"><a href="#">Cancelled</a></li>
+                                        <li role="menuitem"><a href="#">Processed</a></li>
+                                        <li role="menuitem"><a href="#">Expired</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Requester</th>
+                                    <th>State</th>
+                                    <th>Created At</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="doc in ctrl.documents">
+                                    <td>{{doc.id}}</td>
+                                    <td>{{doc.title}}</td>
+                                    <td>{{doc.requester}}</td>
+                                    <td>{{doc.state}}</td>
+                                    <td>{{doc.createdAt}}</td>
+                                    <td><a href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li>
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li>
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+
+            <div ng-show="ctrl.currentPage == 'requests'">
+                <div class="panel panel-default">
+                    <div class="panel-heading main-color-bg">
+                        <h3 class="panel-title">Requests</h3>
+                    </div>
+                    <div class="panel-body">
+                            <div class="col-md-3 col-md-offset-10">
+                                <div class="btn-group" uib-dropdown is-open="status.isopen">
+                                    <button id="req-state-button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="disabled">
+                                        Filter by state <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="req-state-button">
+                                        <li role="menuitem"><a href="#">Requested</a></li>
+                                        <li role="menuitem"><a href="#">Processed</a></li>
+                                        <li role="menuitem"><a href="#">Cancelled</a></li>
+                                        <li role="menuitem"><a href="#">Rejected</a></li>
+                                        <li role="menuitem"><a href="#">Expired</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Requester</th>
+                                    <th>State</th>
+                                    <th>Submitted Date</th>
+                                    <th>Action</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="req in ctrl.requests">
+                                    <td>{{req.id}}</td>
+                                    <td>{{req.title}}</td>
+                                    <td>{{req.requester}}</td>
+                                    <td>{{req.state}}</td>
+                                    <td>{{req.submittedDate}}</td>
+                                    <td>{{req.action}}</td>
+                                    <td><a href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li>
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li>
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="ctrl.currentPage == 'userPrefs'">
+                <div class="panel panel-default">
+                    <div class="panel-heading main-color-bg">
+                        <h3 class="panel-title">User Preferences</h3>
+                    </div>
+                    <div class="panel-body">
+                        <h3>Profile</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="https://lh3.googleusercontent.com/x_rOJaWcpkZUFJ1Hmdtszq-lQt6BMVI7rIiAH-CFkLDo18_JU1DTuiKO6NUJAnimE1HNyzYO7QIQKlkTPQ0MXYlu5g8JqI_gamIiSnv9Jpr3DB5wzv5obHSL7TJKDAT9k3bQ-YA8y3eRmHEFdiUM-cAAoLeUWhMGxl2WIBWkugAm9GZv4I8nUU3e86SaBBnA41uJBksJ4q-7DRpOLmlxQWXrYS70U2Tek_kA3SmeuBERkcHk8TfYyX-LeiET--6D23TACYV7NjZs_H6aGqOI5euVSPTuHFcXAjzzCETlISbXsqVwzaWre8_uIXpF26mcPTvulw3uc588LecxdQQuhKkPXUarWemgYVmtdcp5i-tCgaFQYlGh2sA_Zr0zX2l_ovr9x03qi5Bo_v_OBp4KstOOt8pirOpFUIiXy0vOsDobbzA73sqiRYrNvnaWIe0SQkDl9Q3r0-4o6_HDi8XsR9JFW_X9AfLMTJY1ptCS-wsc-9eWBJ4RzQAcyQjIiA32ssCCU8Fti3nFSSl0vvVVq-JZAn1_OfCEZGTp4usm3QnNYz_7zVM4_7MshBVNS5vWvfF4_zPUXHRDxbwMb-j9WnktAFd8xxbKVSLfeeRIP4JDqxjk8-P8MIGVjHhNJofAhrBz8NuYBasSRFoB4oE2lW2blfrrwdMS=w293-h220-no"
+                                    alt="Profile Image" class="img-responsive img-thumbnail">
+                                <form class="form">
+                                    <input type="file" src="" alt="">
+                                </form>
+                                <p>
+                                    Programmer, Luthier
+                                </p>
+                            </div>
+                        </div>
+                        <hr />
+                        <h3>Change Password</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form class="form">
+                                    <div class="form-group">
+                                        <label for="currentPassword">Current
+                                            Password</label>
+                                        <input type="password" class="form-control" name="currentPassword"
+                                            id="currentPassword" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">New Password</label>
+                                        <input type="password" class="form-control" name="password" id="password" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirmPassword">Confirm
+                                            Password</label>
+                                        <input type="password" name="confirmPassword" id="confirmPassword"
+                                            class="form-control" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</body>
+
+</html>
